@@ -1,7 +1,6 @@
-# Concepts of Programming Languages (KP)
+# C++ - STL - new features C++17
 
-_Elective for [CS](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-master/) graduate students at the [University of Applied Sciences Rosenheim](https://www.fh-rosenheim.de). --- Fachwissenschaftliches Wahlpflichtmodul im [Masterstudiengang Informatik](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-masterr/) an der [Hochschule Rosenheim](www.fh-rosenheim.de)._
-
+The blog briefly summarizes the components of the STL, some important common language features and new language features released with the new ISO standard C++17.
 
 ## Class Schedule
 
