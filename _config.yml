@@ -1,6 +1,6 @@
-title: "Konzepte der Programmiersprachen (KP)"
+title: "C++ Blog"
 email: korbinian.riedhammer@fh-rosenheim.de
-description: "Materials for KP"
+description: "C++ Blog"
 baseurl: ""
 url: "https://VerenaG.github.io"
 exclude: ["LICENSE", "Remarks.md"]
