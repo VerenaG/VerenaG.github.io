@@ -223,6 +223,6 @@ This is a very useful operation that is not possible today without deleting the 
     auto nh = m.extract(2);
     nh.key() = 4;
     m.insert(move(nh));
-    // m == {{1,”bike”}, {3,”bus”}, {4,”car”}}
+    // {{1,”bike”}, {3,”bus”}, {4,”car”}}
 ```
 
