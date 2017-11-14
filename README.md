@@ -46,7 +46,7 @@ Each container offers one of the above mentioned iterators, which depends on the
 
 ## 4. Algorithms
 
-The algorithms library defines functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements. Algorithms work with iterators, and therefore with almost any container. The algorithms require a special category of an iterator. This category is the minimal functionality needed, so you can, for example, use a random access iterator where at least a forward iterator is needed. The algorithms are not considered in this blog. For more information see: http://en.cppreference.com/w/cpp/algorithm
+The algorithms library defines functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements. Algorithms work with iterators, and therefore with almost any container. The algorithms require a special category of an iterator. This category is the minimal functionality needed, so you can, for example, use a random access iterator where at least a forward iterator is needed. The algorithms are not considered in this blog. For more information see: [http://en.cppreference.com/w/cpp/algorithm] http://en.cppreference.com/w/cpp/algorithm
 
 
 ## 3. Function Objects
@@ -132,7 +132,7 @@ Two shared pointers are being created. Another shared pointer is being created w
 
 There is also a third pointer called “weak pointer” in C++. A weak pointer is a container for a raw pointer. It is created as a copy of a shared pointer. The existence or destruction of weak pointer copies of a shared pointer have no effect on the shared pointer or its other copies. After all copies of a shared pointer have been destroyed, all weak pointer copies become empty. A weak pointer is mainly used when you need to access objects that may have been deleted in the meantime for some reason. While the shared pointer offers a powerful interface, the weak pointer is not considered as a smart pointer at all. Finally, it does not allow transparent access to the resource. Although it is possible to share a resource with it, the weak pointer cannot own it, because in fact he only borrows the resource from a shared pointer. It does not change the reference counter. 
 
-For more information about smart pointers see: http://en.cppreference.com/w/cpp/memory
+For more information about smart pointers see: [http://en.cppreference.com/w/cpp/memory] http://en.cppreference.com/w/cpp/memory
 
 # C++17 Features
 
