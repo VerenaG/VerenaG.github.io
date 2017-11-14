@@ -184,6 +184,17 @@ The element “5” cannot be moved to the new set, since the same entry already
     // dst == {1, 2, 3, 4, 5}
  ```
  
+ {% highlight ruby %}
+std::set<int> src{1, 3, 5};
+    std::set<int> dst{2, 4, 5};
+    
+    dst.merge(src);   // Merge src into dst.
+    
+    // src == {5}
+    // dst == {1, 2, 3, 4, 5}
+{% endhighlight %}
+
+ 
 **Surviving the death of the container**
 
 The node handle does not depend on the allocator instance in the container, so it is self- contained and can outlive the container. This makes possible things like very efficient factories for elements: 
