@@ -326,6 +326,12 @@ a:visited { color: #205caa; }
 
 .post code { padding: 1px 5px; }
 
+.post table,th,td{
+	border: 1px solid;
+  border-collapse: collapse;
+}
+
+
 .post ul,
 .post ol { margin-left: 1.35em; }
 
