@@ -2,9 +2,9 @@ title: "Konzepte der Programmiersprachen (KP)"
 email: korbinian.riedhammer@fh-rosenheim.de
 description: "Materials for KP"
 baseurl: ""
-url: "https://hsro-inf-kp.github.io"
+url: "https://VerenaG.github.io"
 exclude: ["LICENSE", "Remarks.md"]
-github_username: ["sikoried"]
+github_username: ["VerenaG"]
 
 # Build settings
 markdown: kramdown
