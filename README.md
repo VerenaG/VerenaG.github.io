@@ -53,7 +53,7 @@ Each container offers one of the above mentioned iterators, which depends on the
 
 <font color="red">Note:</font> The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
 
-**4. Algorithms **
+**4. Algorithms**
 
 The algorithms library defines functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements. Algorithms work with iterators, and therefore with almost any container. The algorithms require a special category of an iterator. This category is the minimal functionality needed, so you can, for example, use a random access iterator where at least a forward iterator is needed. The algorithms are not considered in this blog. For more information see: http://en.cppreference.com/w/cpp/algorithm
 
@@ -84,8 +84,11 @@ class Print{
     std::cout << "\nCount of digits: " << std::to_string(p.Count());    
 ```
 
-
 The class Print contains the function operator (). A local variable n has also been defined. The value of the variable is used in the function and will be incremented. There is also a second function Count defined, which returns the value n. 
+
+The call to the constructor of Print creates an instance of this class. That instance is passed as a function to for_each() and not as a pointer to a function. Therefore calls to Print inside for_each() can be inlined and run more efficiently. Another advantage of using function objects is that local variables can be used, which allows a higher flexibility. This is not possible when using pointers to a function.
+
+Binary functors that return a boolean value are called binary predicates or comparitors or comparison functions. Unary functors that return a boolean value are called unary predicates. Either variety of functor that returns a boolean value may be referred to simply as a predicate function.
 
 
 
