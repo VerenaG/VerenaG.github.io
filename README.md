@@ -146,6 +146,7 @@ For more information about smart pointers see: http://en.cppreference.com/w/cpp/
 ## C++17 Features
 
 # Splicing for maps and sets
+
 Question: How can we simple move elements from one map to another? 
 In the old ISO Standard there was an opportunity to move elements from one map to another. You have to pick the element, put it into a new map and afterwards delete it from the old map. But the heap allocations and deallocations required to insert a new node and erase an old one are very expensive and can create an overhead. Yet another problem is that the key type of maps is const. This means that it cannot be changed. But how else can we move elements from a map to another?
 
@@ -157,6 +158,7 @@ There is also a new overload of insert that takes a node handle and inserts the 
 In C++17 there is as well a merge operation which takes a non-const reference to the container type and attempts to insert each node in the source container. Merging a container will remove from the source all the elements that can be inserted successfully, and (for containers where the insert may fail) leave the remaining elements in the source. This is very important—none of the operations we propose ever lose elements.
 
 **Moving elements from one map to another**
+
 We have moved elements of src into dst without any heap allocation or deallocation, and without constructing, destroying or losing any elements. The third insert failed, returning the usual insert return values and the orphaned node. 
 
 ```c++
@@ -175,6 +177,7 @@ We have moved elements of src into dst without any heap allocation or deallocati
  ```
  
 **Inserting an entire set**
+
 The element “5” cannot be moved to the new set, since the same entry already exists. 
 ```c++
     std::map<int, std::string> src {{1,"one"}, {2,"two"}, {3,"Digit 3"}};
@@ -185,9 +188,37 @@ The element “5” cannot be moved to the new set, since the same entry already
     auto r = dst.insert(src.extract(3)); // Key type version.
     
     // src == {}
-    // dst == {“one”, “two”, “three”}
+    // dst == {"one", "two", "three"}
     // r.position == dst.begin() + 2
     // r.inserted == false
     // r.node == “Digit 3”
  ```
  
+**Surviving the death of the container**
+
+The node handle does not depend on the allocator instance in the container, so it is self- contained and can outlive the container. This makes possible things like very efficient factories for elements: 
+
+ ```c++
+auto new_record(){
+    
+    std::set<std::string> myset;
+    
+    myset.emblace("first");
+    myset.emblace("second");
+    
+    return myset.extract(myset.begin());
+}
+myset.insert(new_record());
+```
+**Changing the key of a map element** 
+
+This is a very useful operation that is not possible today without deleting the element and constructing a new one. While doing this with a node handle does require the insertion and tree balancing overhead, it does not cause any memory allocation or deallocation. 
+
+```c++
+    std::map<int, std::string> m{{1,"bike"}, {2,"car"},{3,"bus"}};
+    auto nh = m.extract(2);
+    nh.key() = 4;
+    m.insert(move(nh));
+    // m == {{1,”bike”}, {3,”bus”}, {4,”car”}}
+```
+
