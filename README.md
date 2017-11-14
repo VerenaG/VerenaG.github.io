@@ -225,4 +225,63 @@ This is a very useful operation that is not possible today without deleting the 
     m.insert(move(nh));
     //{1,”bike”}, {3,”bus”}, {4,”car”}
 ```
+# Selection statements with initializers
+
+Another interesting feature in C++17 are selection statements with initializers. With this feature, if statements can now instantiate variables just like for loops.
+
+While this may seem just like a nice feature for keeping your code short, it is also useful for controlling the scope of your variables. Imagine the following situation where you must deal with locks:
+
+
+In this example, we only need to hold the lock in the critical path, and want it to be out of scope in the non-critical path. To control its scope, we must put more brackets around the critical path, which adds another level of indentation is far less readable.  With C++17, we can rewrite the code above using selection statements with initializers:
+
+A variable initialized like this is only visible in the if-statement and all branches it could take from there. Figure X clarifies the scoping rules for this feature.
+Selection statements with initializers work for if-statements as well as for switch-cases.
+
+# Fold Expressions
+
+Writing template functions with an undefined number of arguments (so called variadic functions) could get verbose prior to C++17. Let’s take the following example: We want to write a function that computes a sum over an undefined number of arguments. To do that, we have to define a separate function for each edge case. Even in this simple example, we need at least one function for no parameters and one for a call with n parameters. As you can see in the code below on the left, this produces unneccesary overhead.
+
+C++17 introduces fold expressions, which allow you perform a parameter pack reduction over a binary operator:
+
+| Expression         | Expansion               
+|--------------------|-----------------------------------------------|
+| (… op pack)        | ((pack1 op pack2) op ...) op packN            | 
+| (pack op …)        | pack1 op (... op (packN-1 op packN))          |
+| (pack … op init)   | pack1 op (... op (packN-1 op (packN op init)))|
+| (init … op pack)   | (((init op pack1) op pack2) op ...) op packN  |
+
+
+The code on the right is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: http://en.cppreference.com/w/cpp/language/fold. 
+
+Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
+					1 + (4 + ( 5 + (8 + 0)))
+Similarly, if you have a unary right fold over the comma separator in the form of
+					(v.push_back(args), ...)
+it would expand as
+			v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
+
+	
+# Structured bindings
+
+Until C++17, if you wanted to unpack a structure like a tuple and bind the contents to specific variables, you had to define all variables first and then use tie to bind them.
+
+
+
+This syntax has many problems and is extremely verbose and prone to errors. Not only makes the definition of every variable your code extremely lengthy, you also must specify every type where it could be easily deduced. If you falsely use a variable in the tie twice like std::tie(first, first, third) you would also get no error. Another disadvantage of std::tie is that you are not able to get the value by reference (or a const value). If you wanted to achieve this, you had to explicitly get the value out of the array by reference, like so:
+
+
+
+To address these problems, C++ 17 introduces a new way to unpack expressions like tuples, arrays or even structs. This feature is called structured bindings and allows you to unpack the tuple from above: 
+
+With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules (http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
+This concept is particularly useful when dealing with maps as maps are by design a structure of two pairs. A simple update script for values in a map, where you update each value by a given function, could look like this:
+
+
+
+# String view
+There are many situations where you must deal with strings, but never modify them. Consider the following function, where you only want the first three items of a string returned:
+
+This is a straight forward implementation, but it has its drawbacks. The command “substring” returns a copy of the given string with the provided length and copying a string is an expensive operation. In this case, it is not even needed to make a copy, since we do not modify the return value.
+
+To tackle this problem, C++17 introduced so called string_views. They are defined as a non-owning view of a string and are therefore read only. They function much like normal strings and have most of the read only functions like find, size, copy. The big advantage is that the cost of copying string_views are cheap, because they are essentially a “pointer + size”. So, the equivalent – but much cheaper and faster - implementation of the above code would be: 
 
