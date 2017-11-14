@@ -92,4 +92,55 @@ Binary functors that return a boolean value are called binary predicates or�
 
 # Common C++ Features
 
+## Smart Pointers
+In C++ there is no Garbage Collector, as know from Java. For this reason, C++ uses Smart Pointers to manage the resources. A smart pointer is a class that wraps a 'raw' C++ pointer, to manage the lifetime of the object being pointed to. It prevents most situations of memory leaks by making the memory deallocation automatic. More generally, smart pointers make object destruction automatic: an object controlled by a smart pointer is automatically destroyed (finalized and then deallocated) when the last (or only) owner of an object is destroyed, for example because the owner is a local variable, and execution leaves the variable's scope. Smart pointers also eliminate dangling pointers by postponing destruction until an object is no longer in use. C++ provides two different Smart Pointers.
+
+**Unique Pointer**
+A unique pointer takes over ownership of the object assigned to it. This means that two unique pointers can never refer to the same object. Note that if a pointer is passed to the unique pointer on an already existing object, the property of the object is transferred to the unique pointer and therefore the object must not be deleted using its original pointer.
+
+```c++
+std::unique_ptr<int> p1 (new int(5));
+    //std::unique_ptr<int> p2 = p1; //Compile error
+    std::unique_ptr<int> p3 =std::move(p1);
+    //Transfer ownership
+    //p3 now owns the memory and p1 is set to nullptr
+    std::unique_ptr<int> p4 (new int(7));
+    
+    std::cout << *p4; //7
+    
+    p3.reset(); //Destroys object, set to nullptr
+    p1.reset(); //Does nothing
+    
+    p4.reset(new int(8));
+    
+    std::cout << *p4; //8
+```
+
+At the beginning a unique pointer (p1) is being created. It allocates one integer and initializes it with value 5. A second pointer is being generated and p1 is assigned to it. That is not possible, because an object can never be owned by two unique pointers. But you can move the ownership from p1 to a new unique pointer p3 with the function move. If an existing unique pointer (p4) is to refer to another new object, use the member function reset (new object) of unique pointer. reset () then takes over ownership of the new object and then destroys the old, previous object. If reset () is called without argument, the previous object will be deleted and the unique pointer will no longer contain an object reference.
+
+**Shared Pointer**
+A shared pointer is a container for a raw pointer. It maintains reference counting ownership of its contained pointer in cooperation with all copies of the shared pointer. An object referenced by the contained raw pointer will be destroyed when and only when all copies of the shared pointer have been destroyed.
+
+```c++
+std::shared_ptr<int> p0 (new int(5));
+    std::shared_ptr<int> p1 (new int(7));
+    std::shared_ptr<int> p2 = p1; //Both now own the memory
+    
+    std::cout << p2.use_count(); // 2
+    
+    p1.reset(); //Memory still exists, due to p2
+    
+    std::cout << p2.use_count(); // 1
+    
+    p2.reset()
+    //Destroyed the object, since no one else owns the memory
+    
+    std::cout << p2.use_count(); // 0
+ ```
+Two shared pointers are being created. Another shared pointer is being created which also refers to the same object as p1. If you then check the reference count it results 2. Afterwards reset p1 and the reference count result 1 because p2 still refers to the object. If you also reset p2 the object will be destroyed because no one else owns the memory.
+
+There is also a third pointer called “weak pointer” in C++. A weak pointer is a container for a raw pointer. It is created as a copy of a shared pointer. The existence or destruction of weak pointer copies of a shared pointer have no effect on the shared pointer or its other copies. After all copies of a shared pointer have been destroyed, all weak pointer copies become empty. A weak pointer is mainly used when you need to access objects that may have been deleted in the meantime for some reason. While the shared pointer offers a powerful interface, the weak pointer is not considered as a smart pointer at all. Finally, it does not allow transparent access to the resource. Although it is possible to share a resource with it, the weak pointer cannot own it, because in fact he only borrows the resource from a shared pointer. It does not change the reference counter. 
+
+For more information about smart pointers see: http://en.cppreference.com/w/cpp/memory
+
 
