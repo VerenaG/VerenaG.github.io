@@ -254,11 +254,11 @@ C++17 introduces fold expressions, which allow you perform a parameter pack redu
 The code on the right is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: http://en.cppreference.com/w/cpp/language/fold. 
 
 Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
-					1 + (4 + ( 5 + (8 + 0)))
+					-> 1 + (4 + ( 5 + (8 + 0))) <-
 Similarly, if you have a unary right fold over the comma separator in the form of
-					(v.push_back(args), ...)
+					-> (v.push_back(args), ...) <-
 it would expand as
-			v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
+			-> v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]); <-
 
 	
 # Structured bindings
