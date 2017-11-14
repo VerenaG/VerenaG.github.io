@@ -43,28 +43,50 @@ A RandomAccessIterator is a BidirectionalIterator that can be moved to point
 
 Each container offers one of the above mentioned iterators, which depends on the access properties of the container. The following table shows the containers and the iterators they offer.
 
-| Container | Iterator |
-|-------|--------|
-| vector | RandomAccessIterator | 
-| deque | RandomAccessIterator |
-| list | BidirectionalIterator  |
-| map | BidirectionalIterator  |
-| set | BidirectionalIterator  |
+| Container | Iterator               |
+|-----------|------------------------|
+| vector    | RandomAccessIterator   | 
+| deque     | RandomAccessIterator   |
+| list      | BidirectionalIterator  |
+| map       | BidirectionalIterator  |
+| set       | BidirectionalIterator  |
 
-Note: The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
+<font color="red">Note:</font> The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
 
-![Note](https://github.com/VerenaG/VerenaG.github.io/blob/master/Achtung.png)
+**4. Algorithms **
+
+The algorithms library defines functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements. Algorithms work with iterators, and therefore with almost any container. The algorithms require a special category of an iterator. This category is the minimal functionality needed, so you can, for example, use a random access iterator where at least a forward iterator is needed. The algorithms are not considered in this blog. For more information see: http://en.cppreference.com/w/cpp/algorithm
 
 
 **3. Function Objects**
 
-**4. Algorithms **
+Function objects (also known as functors) are an STL feature that you may not be able to use immediately when you start using the STL. However, they are very useful in many situations and an STL facility that you should get to know. They give the STL a flexibility that it would not otherwise have and also contribute to the efficiency of the STL. The most common uses for function objects are generating data, testing data, and applying operations to data.
 
-
+A function object is simply any object of a class that provides at least one definition for operator (). This means that if you declare an object f of the class in which this operator () is defined, you can use this object f like an "ordinary" function. Following example shows how to create and use function objects:
 
 {% highlight c++ %}
-
+class Print{
+    int n;
+    public:
+    Print() :n(0) {}
+    void operator()(int v)
+    {
+        std::cout << v << " ";
+        n++;
+    }
+    int Count() { return n;}
+};
+    int values[] = {1,2,3,4,5};
+    std::vector<int> v (values, values + 5);
+    Print p = for_each(v.begin(),v.end(), Print()); //1 2 3 4 5
+    std::cout << "\nCount of digits: " << std::to_string(p.Count());
+     
 {% endhighlight %}
+
+
+The class Print contains the function operator (). A local variable n has also been defined. The value of the variable is used in the function and will be incremented. There is also a second function Count defined, which returns the value n. 
+
+
 
 **Class and Tutorials**: Tuesdays at 8a (2 units)
 
