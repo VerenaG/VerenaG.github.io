@@ -162,8 +162,12 @@ In C++17 there is as well a merge operation which takes a non-const reference to
 We have moved elements of src into dst without any heap allocation or deallocation, and without constructing, destroying or losing any elements. The third insert failed, returning the usual insert return values and the orphaned node. 
 
 ```c++
-    std::map<int, std::string> src {{1,"one"}, {2,"two"}, {3,"Digit 3"}};
+    std::map<int, std::string> src;
     std::map<int, std::string> dst {{3,"three"}};
+    
+    src.emplace(1,"one");
+    src.emplace(2,"two");
+    src.emplace(3,"Digit 3");
     
     dst.insert(src.extract(src.find(1))); // Iterator version.
     dst.insert(src.extract(2)); // Key type version.
@@ -180,22 +184,13 @@ We have moved elements of src into dst without any heap allocation or deallocati
 
 The element “5” cannot be moved to the new set, since the same entry already exists. 
 ```c++
-    std::map<int, std::string> src;
-    std::map<int, std::string> dst {{3,"three"}};
+    std::set<int> src{1, 3, 5};
+    std::set<int> dst{2, 4, 5};
     
-    src.emplace(1,"one");
-    src.emplace(2,"two");
-    src.emplace(3,"Digit 3");
+    dst.merge(src);   // Merge src into dst.
     
-    dst.insert(src.extract(src.find(1))); // Iterator version.
-    dst.insert(src.extract(2)); // Key type version.
-    auto r = dst.insert(src.extract(3)); // Key type version.
-    
-    // src == {}
-    // dst == {"one", "two", "three"}
-    // r.position == dst.begin() + 2
-    // r.inserted == false
-    // r.node == “Digit 3”
+    // src == {5}
+    // dst == {1, 2, 3, 4, 5}
  ```
  
 **Surviving the death of the container**
