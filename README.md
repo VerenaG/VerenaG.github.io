@@ -246,15 +246,15 @@ The code on the right is called a binary right fold over the + operator. The rul
 
 Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
 ```c++
-				 1 + (4 + ( 5 + (8 + 0)))
+			1 + (4 + ( 5 + (8 + 0)))
 ```
 Similarly, if you have a unary right fold over the comma separator in the form of
 ```c++
-					(v.push_back(args), ...)
+			(v.push_back(args), ...)
 ```
 it would expand as
 ```c++
-			-v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
+	-v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
 ```
 
 	
