@@ -64,7 +64,7 @@ Function objects (also known as functors) are an STL feature that you may not be
 
 A function object is simply any object of a class that provides at least one definition for operator (). This means that if you declare an object f of the class in which this operator () is defined, you can use this object f like an "ordinary" function. Following example shows how to create and use function objects:
 
-{% highlight c++ %}
+```c++
 class Print{
     int n;
     public:
@@ -76,12 +76,13 @@ class Print{
     }
     int Count() { return n;}
 };
+```
+```c++
     int values[] = {1,2,3,4,5};
     std::vector<int> v (values, values + 5);
     Print p = for_each(v.begin(),v.end(), Print()); //1 2 3 4 5
-    std::cout << "\nCount of digits: " << std::to_string(p.Count());
-     
-{% endhighlight %}
+    std::cout << "\nCount of digits: " << std::to_string(p.Count());    
+```
 
 
 The class Print contains the function operator (). A local variable n has also been defined. The value of the variable is used in the function and will be incremented. There is also a second function Count defined, which returns the value n. 
