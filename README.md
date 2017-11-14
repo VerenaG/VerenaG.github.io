@@ -1,8 +1,22 @@
-# C++ - STL - new features C++17
 
 The blog briefly summarizes the components of the STL, some important common language features and new language features released with the new ISO standard C++17.
 
-## Class Schedule
+## STL
+
+STL stands for Standard Template Library and contains implementations of data containers based on templates, associated access mechanisms and algorithms. It was designed by Alexander Stepanov and Meng Lee with the support of HP and was presented to the standardization committee for C++ at the end of 1993. In 1994 it was adopted as part of the C++ standard library.
+
+The STL can be divided into four components:
+
+**- Containers**
+**- Iterators**
+**- Function Objects**
+**- Algorithms**
+
+
+
+{% highlight c++ %}
+
+{% endhighlight %}
 
 **Class and Tutorials**: Tuesdays at 8a (2 units)
 
