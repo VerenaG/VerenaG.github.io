@@ -132,7 +132,7 @@ Two shared pointers are being created. Another shared pointer is being created w
 
 There is also a third pointer called “weak pointer” in C++. A weak pointer is a container for a raw pointer. It is created as a copy of a shared pointer. The existence or destruction of weak pointer copies of a shared pointer have no effect on the shared pointer or its other copies. After all copies of a shared pointer have been destroyed, all weak pointer copies become empty. A weak pointer is mainly used when you need to access objects that may have been deleted in the meantime for some reason. While the shared pointer offers a powerful interface, the weak pointer is not considered as a smart pointer at all. Finally, it does not allow transparent access to the resource. Although it is possible to share a resource with it, the weak pointer cannot own it, because in fact he only borrows the resource from a shared pointer. It does not change the reference counter. 
 
-For more information about smart pointers see: [http://en.cppreference.com/w/cpp/memory] http://en.cppreference.com/w/cpp/memory
+For more information about smart pointers see: [http://en.cppreference.com/w/cpp/memory](http://en.cppreference.com/w/cpp/memory)
 
 # C++17 Features
 
@@ -242,14 +242,20 @@ C++17 introduces fold expressions, which allow you perform a parameter pack redu
 | (init … op pack)   | (((init op pack1) op pack2) op ...) op packN  |
 
 
-The code on the right is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: http://en.cppreference.com/w/cpp/language/fold 
+The code on the right is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: [http://en.cppreference.com/w/cpp/language/fold](http://en.cppreference.com/w/cpp/language/fold)
 
 Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
+```c++
 				 1 + (4 + ( 5 + (8 + 0)))
+```
 Similarly, if you have a unary right fold over the comma separator in the form of
+```c++
 					(v.push_back(args), ...)
+```
 it would expand as
+```c++
 			-v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
+```
 
 	
 ## Structured bindings
