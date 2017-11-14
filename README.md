@@ -53,7 +53,7 @@ Each container offers one of the above mentioned iterators, which depends on the
 
 Note: The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
 
-![Note](/Users/verenagrobner/Desktop/Achtung.svg)
+![Note](https://github.com/VerenaG/VerenaG.github.io/Achtung.png)
 
 
 **3. Function Objects**
