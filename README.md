@@ -11,9 +11,7 @@ The STL can be divided into four components:
 The fundamental purpose of a container is to store multiple objects in a single container object. Different kinds of containers have different characteristics: speed, size, and ease of use. The choice of container depends on the characteristics and behavior you require.
 
 Die Container können in zwei Arten unterschieden werden:
-- Standard Container
-
-Deque, list, vector, map, set
+- Standard Container: deque, list, vector, map, set
 
 - Container Adapters
 
@@ -42,6 +40,21 @@ A BidirectionalIterator is a ForwardIterator that can be moved in both direc
 **Random Access**
 
 A RandomAccessIterator is a BidirectionalIterator that can be moved to point to any element in constant time. It also supports the [] operator to access any index in the sequence. Also, you can add or subtract an integer to move a random access iterator by more than one position at a time. Subtracting two random access iterators yields an integer distance between them. Thus, a random access iterator is most like a conventional pointer, and a pointer can be used as a random access iterator.
+
+Each container offers one of the above mentioned iterators, which depends on the access properties of the container. The following table shows the containers and the iterators they offer.
+
+| Container | Iterator |
+|-------|--------|
+| vector | RandomAccessIterator | 
+| deque | RandomAccessIterator |
+| list | BidirectionalIterator  |
+| map | BidirectionalIterator  |
+| set | BidirectionalIterator  |
+
+Note: The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
+
+![Note](//Users/verenagrobner/Desktop/Achtung.png){:class="img-responsive"}
+
 
 **3. Function Objects**
 
