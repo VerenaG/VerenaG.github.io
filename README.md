@@ -246,11 +246,11 @@ The code on the right is called a binary right fold over the + operator. The rul
 
 Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
 ```c++
-			1 + (4 + ( 5 + (8 + 0)))
+				1 + (4 + ( 5 + (8 + 0)))
 ```
 Similarly, if you have a unary right fold over the comma separator in the form of
 ```c++
-			(v.push_back(args), ...)
+				(v.push_back(args), ...)
 ```
 it would expand as
 ```c++
@@ -262,17 +262,12 @@ it would expand as
 
 Until C++17, if you wanted to unpack a structure like a tuple and bind the contents to specific variables, you had to define all variables first and then use tie to bind them.
 
-
-
 This syntax has many problems and is extremely verbose and prone to errors. Not only makes the definition of every variable your code extremely lengthy, you also must specify every type where it could be easily deduced. If you falsely use a variable in the tie twice like std::tie(first, first, third) you would also get no error. Another disadvantage of std::tie is that you are not able to get the value by reference (or a const value). If you wanted to achieve this, you had to explicitly get the value out of the array by reference, like so:
-
-
 
 To address these problems, C++ 17 introduces a new way to unpack expressions like tuples, arrays or even structs. This feature is called structured bindings and allows you to unpack the tuple from above: 
 
-With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules [http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts]((http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts)). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
+With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules [http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts](http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
 This concept is particularly useful when dealing with maps as maps are by design a structure of two pairs. A simple update script for values in a map, where you update each value by a given function, could look like this:
-
 
 
 ## String view
