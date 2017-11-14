@@ -277,27 +277,5 @@ This is a straight forward implementation, but it has its drawbacks. The command
 
 To tackle this problem, C++17 introduced so called string_views. They are defined as a non-owning view of a string and are therefore read only. They function much like normal strings and have most of the read only functions like find, size, copy. The big advantage is that the cost of copying string_views are cheap, because they are essentially a “pointer + size”. So, the equivalent – but much cheaper and faster - implementation of the above code would be: 
 
-<table>
-<colgroup>
-<col width="30%" />
-<col width="70%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td markdown="span">First column **fields**</td>
-<td markdown="span">Some descriptive text. This is a markdown link to [Google](http://google.com). Or see [some link][mydoc_tags].</td>
-</tr>
-<tr>
-<td markdown="span">Second column **fields**</td>
-<td markdown="span">Some more descriptive text.
-</td>
-</tr>
-</tbody>
-</table>
+
 
