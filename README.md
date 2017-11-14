@@ -183,9 +183,8 @@ The element “5” cannot be moved to the new set, since the same entry already
     // src == {5}
     // dst == {1, 2, 3, 4, 5}
  ```
- 
- {% highlight ruby %}
-std::set<int> src{1, 3, 5};
+ {% highlight c++ %}
+    std::set<int> src{1, 3, 5};
     std::set<int> dst{2, 4, 5};
     
     dst.merge(src);   // Merge src into dst.
