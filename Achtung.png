@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"  standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" shape-rendering="geometricPrecision" fill-rule="evenodd" copyright="POINT Project" width="1000" height="1000">
+<title>wichtig</title>
+<desc>id=41253.5027777778</desc>
+<defs>
+<style type="text/css">
+<![CDATA[
+.s41253_5027777778_0 { fill:none; }
+.s41253_5027777778_1 { fill:#EB3D00; }
+]]>
+</style>
+</defs>
+<g>
+<path class="s41253_5027777778_1" d="M487,686c44,0 80,36 80,80 0,45 -36,81 -80,81 -44,0 -79,-36 -79,-81 0,-44 35,-80 79,-80z" />
+<path class="s41253_5027777778_1" d="M487,106l0,0c45,0 88,38 82,83l-47,346c-6,45 -5,82 -35,83 -31,1 0,0 0,0 -27,1 -26,-30 -33,-75l-50,-354c-6,-45 37,-83 83,-83z" />
+</g>
+</svg>
