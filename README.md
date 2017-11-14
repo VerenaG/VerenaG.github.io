@@ -7,7 +7,7 @@ STL stands for Standard Template Library and contains implementations of data co
 
 The STL can be divided into four components:
 
-**1. Containers**
+# 1. Containers
 The fundamental purpose of a container is to store multiple objects in a single container object. Different kinds of containers have different characteristics: speed, size, and ease of use. The choice of container depends on the characteristics and behavior you require.
 
 Die Container können in zwei Arten unterschieden werden:
@@ -17,7 +17,7 @@ Die Container können in zwei Arten unterschieden werden:
 
 An adapter is a class template that uses a container for storage and provides a restricted interface when compared    with the standard containers. Adapters do not have iterators, so they cannot be used with the standard algorithms. The standard adapters are: priority_queue, queue, stack
 
-**2. Iterators**
+# 2. Iterators
 
 An iterator is any object that, pointing to some element in a range of elements (such as an array or a container) and has the ability to iterate through the elements of that range using a set of operators. The most obvious form of an iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (++).  Iterators generalize this concept so the same operators have the same behavior for any container, even trees and lists. Notice that while a pointer is a form of iterator, not all iterators have the same functionality of pointers. Depending on the properties supported by iterators, they are classified into five different categories:
 
@@ -53,12 +53,12 @@ Each container offers one of the above mentioned iterators, which depends on the
 
 <font color="red">Note:</font> The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
 
-**4. Algorithms**
+# 4. Algorithms
 
 The algorithms library defines functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements. Algorithms work with iterators, and therefore with almost any container. The algorithms require a special category of an iterator. This category is the minimal functionality needed, so you can, for example, use a random access iterator where at least a forward iterator is needed. The algorithms are not considered in this blog. For more information see: http://en.cppreference.com/w/cpp/algorithm
 
 
-**3. Function Objects**
+# 3. Function Objects
 
 Function objects (also known as functors) are an STL feature that you may not be able to use immediately when you start using the STL. However, they are very useful in many situations and an STL facility that you should get to know. They give the STL a flexibility that it would not otherwise have and also contribute to the efficiency of the STL. The most common uses for function objects are generating data, testing data, and applying operations to data.
 
@@ -90,67 +90,6 @@ The call to the constructor of Print creates an instance of this class. That in
 
 Binary functors that return a boolean value are called binary predicates or comparitors or comparison functions. Unary functors that return a boolean value are called unary predicates. Either variety of functor that returns a boolean value may be referred to simply as a predicate function.
 
+## Common C++ Features
 
 
-**Class and Tutorials**: Tuesdays at 8a (2 units)
-
-**Communication** via [Mattermost](https://inf-mattermost.fh-rosenheim.de/kp-2017/channels/town-square) ([invite](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=91qad3c3sfgejk3gtw6hhry3na)).
-
-**Important Dates:**
-- Oct 3, no class (Tag der Einheit)
-- Oct 10, introduction, distribution of topics
-- Oct 31, no class (Reformationstag, Lutherjahr 2017)
-
-_Note: Materials will be in English, the lectures/tutorials will be taught in German._
-
-
-## Recommended Textbooks
-
-_TBA_
-
-
-## Class and Credits _(Leistungsnachweis)_
-Lectures: We'll start with an introduction to functional programming with Scala, and then go into languages and topics (prepared by students) for the remainder of the class.
-
-Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipedia.org/wiki/Bring_your_own_device) strongly recommended!
-
-Credits: Team project (PStA) consisting of materials (slides, assignments, solutions) and final paper.
-
-
-## Syllabus (tentative)
-
-> No class on Oct 3 (Tag der Einheit)
-
-- **Introduction (Oct 10, [slides](/01s-intro/) with topics)**
-	
-	Intro to the class and requirements, brief overview of the available topics.
-
-- **Functional Programming in Scala pt. 1 (Oct 17, [slides](/02s-fp-1), [assignments](/02a-fp-1/))**
-
-	Function evaluation and the substitution model, higher order functions and how to model classes in Scala.
-
-- **Functional Programming in Scala pt. 2 (Oct 24, [assignments](/03a-fp-2/))**
-
-	Learn about pattern matching, and how to use it to work with lists and collections.
-
-> No class on Oct 31 (Reformationstag, Lutherjahr 2017)
-
-- **Functional Programming in Scala pt. 3 (Nov 7)**
-	
-	_TBA_
-
-- **Student presentations (Nov 14 ... Jan 30)**
-	- Nov 14:	Reactive programming
-	- Nov 21:	Actors
-	- Nov 28: 	C++17
-	- Dec 5: 	C++: operator overloading and template meta programming
-	- Dec 12:	Two-way data binding in MVC
-	- Dec 19:	Monads (Scala)
-	- Jan 9:	Decorators and mixins (Python)
-	- Jan 16:	Dependency Injection
-	- Jan 23:	Squeeze for performance
-	- Jan 30 (1):	Properties
-	- Jan 30 (2):	Rust
-
-
-_Subscribe to [https://github.com/hsro-inf-kp/hsro-inf-kp.github.io](https://github.com/hsro-inf-kp) repository to follow updates._
