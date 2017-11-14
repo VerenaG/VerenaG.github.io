@@ -99,7 +99,7 @@ In C++ there is no Garbage Collector, as know from Java. For this reason, C++ us
 A unique pointer takes over ownership of the object assigned to it. This means that two unique pointers can never refer to the same object. Note that if a pointer is passed to the unique pointer on an already existing object, the property of the object is transferred to the unique pointer and therefore the object must not be deleted using its original pointer.
 
 ```c++
-std::unique_ptr<int> p1 (new int(5));
+    std::unique_ptr<int> p1 (new int(5));
     //std::unique_ptr<int> p2 = p1; //Compile error
     std::unique_ptr<int> p3 =std::move(p1);
     //Transfer ownership
@@ -122,7 +122,7 @@ At the beginning a unique pointer (p1) is being created. It allocates one intege
 A shared pointer is a container for a raw pointer. It maintains reference counting ownership of its contained pointer in cooperation with all copies of the shared pointer. An object referenced by the contained raw pointer will be destroyed when and only when all copies of the shared pointer have been destroyed.
 
 ```c++
-std::shared_ptr<int> p0 (new int(5));
+    std::shared_ptr<int> p0 (new int(5));
     std::shared_ptr<int> p1 (new int(7));
     std::shared_ptr<int> p2 = p1; //Both now own the memory
     
@@ -143,4 +143,51 @@ There is also a third pointer called “weak pointer” in C++. A weak pointer i
 
 For more information about smart pointers see: http://en.cppreference.com/w/cpp/memory
 
+## C++17 Features
 
+# Splicing for maps and sets
+Question: How can we simple move elements from one map to another? 
+In the old ISO Standard there was an opportunity to move elements from one map to another. You have to pick the element, put it into a new map and afterwards delete it from the old map. But the heap allocations and deallocations required to insert a new node and erase an old one are very expensive and can create an overhead. Yet another problem is that the key type of maps is const. This means that it cannot be changed. But how else can we move elements from a map to another?
+
+The problem is solved with a new functionality released with C++17. 
+There is a new function extract which unlinks the selected node from the container (performing the same balancing actions as erase). The extract function has the same overloads as the single parameter erase function: one that takes an iterator and one that takes a key type. They return an implementation-defined type which we refer to as the node handle. The node handle can be thought of as a special type of container which holds the node while in transit. It contains a copy of the allocator of the container. This is necessary so that the node handle can survive the container. Note that extracting a node naturally invalidates all iterators to it (since it is no longer an element of the container). Extracting a node from a map of any type invalidates pointers and references to it. This does not occur for sets.
+
+There is also a new overload of insert that takes a node handle and inserts the node directly, without copying or moving it. Inserting a node into a map of any type invalidates all pointers and references to it. For sets this does not occur.
+
+In C++17 there is as well a merge operation which takes a non-const reference to the container type and attempts to insert each node in the source container. Merging a container will remove from the source all the elements that can be inserted successfully, and (for containers where the insert may fail) leave the remaining elements in the source. This is very important—none of the operations we propose ever lose elements.
+
+**Moving elements from one map to another**
+We have moved elements of src into dst without any heap allocation or deallocation, and without constructing, destroying or losing any elements. The third insert failed, returning the usual insert return values and the orphaned node. 
+
+```c++
+    std::map<int, std::string> src {{1,"one"}, {2,"two"}, {3,"Digit 3"}};
+    std::map<int, std::string> dst {{3,"three"}};
+    
+    dst.insert(src.extract(src.find(1))); // Iterator version.
+    dst.insert(src.extract(2)); // Key type version.
+    auto r = dst.insert(src.extract(3)); // Key type version.
+    
+    // src == {}
+    // dst == {“one”, “two”, “three”}
+    // r.position == dst.begin() + 2
+    // r.inserted == false
+    // r.node == “Digit 3”
+ ```
+ 
+**Inserting an entire set**
+The element “5” cannot be moved to the new set, since the same entry already exists. 
+```c++
+    std::map<int, std::string> src {{1,"one"}, {2,"two"}, {3,"Digit 3"}};
+    std::map<int, std::string> dst {{3,"three"}};
+    
+    dst.insert(src.extract(src.find(1))); // Iterator version.
+    dst.insert(src.extract(2)); // Key type version.
+    auto r = dst.insert(src.extract(3)); // Key type version.
+    
+    // src == {}
+    // dst == {“one”, “two”, “three”}
+    // r.position == dst.begin() + 2
+    // r.inserted == false
+    // r.node == “Digit 3”
+ ```
+ 
