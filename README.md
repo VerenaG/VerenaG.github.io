@@ -180,8 +180,12 @@ We have moved elements of src into dst without any heap allocation or deallocati
 
 The element “5” cannot be moved to the new set, since the same entry already exists. 
 ```c++
-    std::map<int, std::string> src {{1,"one"}, {2,"two"}, {3,"Digit 3"}};
+    std::map<int, std::string> src;
     std::map<int, std::string> dst {{3,"three"}};
+    
+    src.emplace(1,"one");
+    src.emplace(2,"two");
+    src.emplace(3,"Digit 3");
     
     dst.insert(src.extract(src.find(1))); // Iterator version.
     dst.insert(src.extract(2)); // Key type version.
@@ -215,7 +219,12 @@ myset.insert(new_record());
 This is a very useful operation that is not possible today without deleting the element and constructing a new one. While doing this with a node handle does require the insertion and tree balancing overhead, it does not cause any memory allocation or deallocation. 
 
 ```c++
-    std::map<int, std::string> m{{1,"bike"}, {2,"car"},{3,"bus"}};
+    std::map<int, std::string> m;
+    
+    m.emplace(1,"bike");
+    m.emplace(2,"car");
+    m.emplace(3,"bus");
+    
     auto nh = m.extract(2);
     nh.key() = 4;
     m.insert(move(nh));
