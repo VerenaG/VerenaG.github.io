@@ -30,8 +30,8 @@ An InputIterator is an Iterator that can read from the pointed-to element. T
 With an OutputIterator you can wright to the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator. Use the dereference operator (*) only to assign a value to an element. You cannot assign a value more than once to a single element. Unlike other iterator categories, you cannot compare output iterators.
 	
 **Forward**
-
-ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
+ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the 
+dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
 	
 **Bidirectional**
 
