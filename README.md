@@ -12,27 +12,36 @@ The fundamental purpose of a container is to store multiple objects in a single
 
 Die Container können in zwei Arten unterschieden werden:
 - Standard Container
+
 Deque, list, vector, map, set
+
 - Container Adapters
+
 An adapter is a class template that uses a container for storage and provides a restricted interface when compared    with the standard containers. Adapters do not have iterators, so they cannot be used with the standard algorithms. The standard adapters are: priority_queue, queue, stack
 
 **2. Iterators**
-	An iterator is any object that, pointing to some element in a range of elements (such as an array or a container) and has the ability to iterate through the elements of that range using a set of operators. The most obvious form of an iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (++).  Iterators generalize this concept so the same operators have the same behavior for any container, even trees and lists. Notice that while a pointer is a form of iterator, not all iterators have the same functionality of pointers. Depending on the properties supported by iterators, they are classified into five different categories:
+
+An iterator is any object that, pointing to some element in a range of elements (such as an array or a container) and has the ability to iterate through the elements of that range using a set of operators. The most obvious form of an iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (++).  Iterators generalize this concept so the same operators have the same behavior for any container, even trees and lists. Notice that while a pointer is a form of iterator, not all iterators have the same functionality of pointers. Depending on the properties supported by iterators, they are classified into five different categories:
 
 **Input**
-	An InputIterator is an Iterator that can read from the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator (--). Use the dereference operator (*) to read elements. You cannot read a single element more than once, and you cannot modify elements.
+
+An InputIterator is an Iterator that can read from the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator (--). Use the dereference operator (*) to read elements. You cannot read a single element more than once, and you cannot modify elements.
 	
 **Output**
-	With an OutputIterator you can wright to the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator. Use the dereference operator (*) only to assign a value to an element. You cannot assign a value more than once to a single element. Unlike other iterator categories, you cannot compare output iterators.
+
+With an OutputIterator you can wright to the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator. Use the dereference operator (*) only to assign a value to an element. You cannot assign a value more than once to a single element. Unlike other iterator categories, you cannot compare output iterators.
 	
 **Forward**
-	ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
+
+ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
 	
 **Bidirectional**
-	A BidirectionalIterator is a ForwardIterator that can be moved in both directions (i.e. incremented and decremented).
+
+A BidirectionalIterator is a ForwardIterator that can be moved in both directions (i.e. incremented and decremented).
 	
 **Random Access**
-	A RandomAccessIterator is a BidirectionalIterator that can be moved to point to any element in constant time. It also supports the [] operator to access any index in the sequence. Also, you can add or subtract an integer to move a random access iterator by more than one position at a time. Subtracting two random access iterators yields an integer distance between them. Thus, a random access iterator is most like a conventional pointer, and a pointer can be used as a random access iterator.
+
+A RandomAccessIterator is a BidirectionalIterator that can be moved to point to any element in constant time. It also supports the [] operator to access any index in the sequence. Also, you can add or subtract an integer to move a random access iterator by more than one position at a time. Subtracting two random access iterators yields an integer distance between them. Thus, a random access iterator is most like a conventional pointer, and a pointer can be used as a random access iterator.
 
 **3. Function Objects**
 
