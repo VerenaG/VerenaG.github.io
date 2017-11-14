@@ -143,9 +143,9 @@ There is also a third pointer called “weak pointer” in C++. A weak pointer i
 
 For more information about smart pointers see: http://en.cppreference.com/w/cpp/memory
 
-## C++17 Features
+# C++17 Features
 
-# Splicing for maps and sets
+## Splicing for maps and sets
 
 Question: How can we simple move elements from one map to another? 
 In the old ISO Standard there was an opportunity to move elements from one map to another. You have to pick the element, put it into a new map and afterwards delete it from the old map. But the heap allocations and deallocations required to insert a new node and erase an old one are very expensive and can create an overhead. Yet another problem is that the key type of maps is const. This means that it cannot be changed. But how else can we move elements from a map to another?
@@ -225,7 +225,7 @@ This is a very useful operation that is not possible today without deleting the 
     m.insert(move(nh));
     //{1,”bike”}, {3,”bus”}, {4,”car”}
 ```
-# Selection statements with initializers
+## Selection statements with initializers
 
 Another interesting feature in C++17 are selection statements with initializers. With this feature, if statements can now instantiate variables just like for loops.
 
@@ -237,7 +237,7 @@ In this example, we only need to hold the lock in the critical path, and want it
 A variable initialized like this is only visible in the if-statement and all branches it could take from there. Figure X clarifies the scoping rules for this feature.
 Selection statements with initializers work for if-statements as well as for switch-cases.
 
-# Fold Expressions
+## Fold Expressions
 
 Writing template functions with an undefined number of arguments (so called variadic functions) could get verbose prior to C++17. Let’s take the following example: We want to write a function that computes a sum over an undefined number of arguments. To do that, we have to define a separate function for each edge case. Even in this simple example, we need at least one function for no parameters and one for a call with n parameters. As you can see in the code below on the left, this produces unneccesary overhead.
 
@@ -261,7 +261,7 @@ it would expand as
 			-v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
 
 	
-# Structured bindings
+## Structured bindings
 
 Until C++17, if you wanted to unpack a structure like a tuple and bind the contents to specific variables, you had to define all variables first and then use tie to bind them.
 
@@ -278,7 +278,7 @@ This concept is particularly useful when dealing with maps as maps are by design
 
 
 
-# String view
+## String view
 There are many situations where you must deal with strings, but never modify them. Consider the following function, where you only want the first three items of a string returned:
 
 This is a straight forward implementation, but it has its drawbacks. The command “substring” returns a copy of the given string with the provided length and copying a string is an expensive operation. In this case, it is not even needed to make a copy, since we do not modify the return value.
