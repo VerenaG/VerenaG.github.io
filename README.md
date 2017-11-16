@@ -358,7 +358,7 @@ void update(std::map<Key, Value>&m, F f) {
 ## String view
 There are many situations where you must deal with strings, but never modify them. Consider the following function, where you only want the first three items of a string returned:
 ```c++
-Std::string first_3(std:string const& s) { 
+std::string first_3(std:string const& s) { 
          if (s.size() < 3) return s;
         
          return s.substr(0, 2); 
@@ -368,7 +368,7 @@ This is a straight forward implementation, but it has its drawbacks. The command
 
 To tackle this problem, C++17 introduced so called string_views. They are defined as a non-owning view of a string and are therefore read only. They function much like normal strings and have most of the read only functions like find, size, copy. The big advantage is that the cost of copying string_views are cheap, because they are essentially a “pointer + size”. So, the equivalent – but much cheaper and faster - implementation of the above code would be: 
 ```c++
-Std::string_view first_3(std:string_view const& s) {
+std::string_view first_3(std:string_view const& s) {
          if (s.size() < 3) return s;
          return s.substr(0, 2);
 }
