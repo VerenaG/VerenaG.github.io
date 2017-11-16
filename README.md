@@ -282,8 +282,6 @@ else {
 
 Writing template functions with an undefined number of arguments (so called variadic functions) could get verbose prior to C++17. Let’s take the following example: We want to write a function that computes a sum over an undefined number of arguments. To do that, we have to define a separate function for each edge case. Even in this simple example, we need at least one function for no parameters and one for a call with n parameters. As you can see in the code below on the left, this produces unneccesary overhead.
 
-C++17 introduces fold expressions, which allow you perform a parameter pack reduction over a binary operator:
-
 | Expression         | Expansion               
 |--------------------|-----------------------------------------------|
 | (… op pack)        | ((pack1 op pack2) op ...) op packN            | 
@@ -291,8 +289,25 @@ C++17 introduces fold expressions, which allow you perform a parameter pack redu
 | (pack … op init)   | pack1 op (... op (packN-1 op (packN op init)))|
 | (init … op pack)   | (((init op pack1) op pack2) op ...) op packN  |
 
+C++17 introduces fold expressions, which allow you perform a parameter pack reduction over a binary operator:
 
-The code on the right is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: [http://en.cppreference.com/w/cpp/language/fold](http://en.cppreference.com/w/cpp/language/fold)
+```c++
+auto sum() {
+         return 0;
+}
+template <typename T0, typename... Tn>
+auto sum(T0 first, Tn... rest) {
+         return first + sum(rest...);
+}
+```
+
+```c++
+template <typename... Tn>
+auto sum(Tn... Tn) {
+         return (Tn + ... + 0);
+}
+```
+The code above is called a binary right fold over the + operator. The rules that define the unfolding process and the legal binary operators are stated here: [http://en.cppreference.com/w/cpp/language/fold](http://en.cppreference.com/w/cpp/language/fold)
 
 Let’s say we call the function with sum (1, 4, 5, 8). Following the rules, the parameter pack would then unfold like this:
 ```c++
@@ -311,21 +326,52 @@ it would expand as
 ## Structured bindings
 
 Until C++17, if you wanted to unpack a structure like a tuple and bind the contents to specific variables, you had to define all variables first and then use tie to bind them.
-
+```c++
+std::tuple<int, int, int>t = std::make_tuple(1, 5, 10);
+int first;
+int second;
+int third;
+std::tie(first, second, third);
+```
 This syntax has many problems and is extremely verbose and prone to errors. Not only makes the definition of every variable your code extremely lengthy, you also must specify every type where it could be easily deduced. If you falsely use a variable in the tie twice like std::tie(first, first, third) you would also get no error. Another disadvantage of std::tie is that you are not able to get the value by reference (or a const value). If you wanted to achieve this, you had to explicitly get the value out of the array by reference, like so:
-
+```c++
+auto& first = std::get<0>(t)
+```
 To address these problems, C++ 17 introduces a new way to unpack expressions like tuples, arrays or even structs. This feature is called structured bindings and allows you to unpack the tuple from above: 
-
+```c++
+std::tuple<int, int, int> t = std::make_tuple(1, 5, 10);
+auto[first, second, third] = t;
+auto&[first, second, third] = t;
+auto const[first, second, third] = t;
+```
 With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules [http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts](http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
 This concept is particularly useful when dealing with maps as maps are by design a structure of two pairs. A simple update script for values in a map, where you update each value by a given function, could look like this:
+```c++
+template <typename Key, typename Value, typename f>
+void update(std::map<Key, Value>&m, F f) {
+         fpr(auto&&[key, value] : m)
+                 value = f(key);
+}
+```
 
 
 ## String view
 There are many situations where you must deal with strings, but never modify them. Consider the following function, where you only want the first three items of a string returned:
-
+```c++
+Std::string first_3(std:string const& s) { 
+         if (s.size() < 3) return s;
+        
+         return s.substr(0, 2); 
+}
+```
 This is a straight forward implementation, but it has its drawbacks. The command “substring” returns a copy of the given string with the provided length and copying a string is an expensive operation. In this case, it is not even needed to make a copy, since we do not modify the return value.
 
 To tackle this problem, C++17 introduced so called string_views. They are defined as a non-owning view of a string and are therefore read only. They function much like normal strings and have most of the read only functions like find, size, copy. The big advantage is that the cost of copying string_views are cheap, because they are essentially a “pointer + size”. So, the equivalent – but much cheaper and faster - implementation of the above code would be: 
-
+```c++
+Std::string_view first_3(std:string_view const& s) {
+         if (s.size() < 3) return s;
+         return s.substr(0, 2);
+}
+```
 
 
