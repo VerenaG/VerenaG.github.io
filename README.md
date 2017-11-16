@@ -108,21 +108,21 @@ In C++ there is no Garbage Collector, as know from Java. For this reason, C++ us
 A unique pointer takes over ownership of the object assigned to it. This means that two unique pointers can never refer to the same object. Note that if a pointer is passed to the unique pointer on an already existing object, the property of the object is transferred to the unique pointer and therefore the object must not be deleted using its original pointer.
 
 ```c++
-    std::unique_ptr<int> p1 (new int(5));
-    //std::unique_ptr<int> p2 = p1; //Compile error
-    std::unique_ptr<int> p3 =std::move(p1);
-    //Transfer ownership
-    //p3 now owns the memory and p1 is set to nullptr
-    std::unique_ptr<int> p4 (new int(7));
+std::unique_ptr<int> p1 (new int(5));
+//std::unique_ptr<int> p2 = p1; //Compile error
+std::unique_ptr<int> p3 =std::move(p1);
+//Transfer ownership
+//p3 now owns the memory and p1 is set to nullptr
+std::unique_ptr<int> p4 (new int(7));
     
-    std::cout << *p4; //7
+std::cout << *p4; //7
     
-    p3.reset(); //Destroys object, set to nullptr
-    p1.reset(); //Does nothing
+p3.reset(); //Destroys object, set to nullptr
+p1.reset(); //Does nothing
     
-    p4.reset(new int(8));
+p4.reset(new int(8));
     
-    std::cout << *p4; //8
+std::cout << *p4; //8
 ```
 
 At the beginning a unique pointer (p1) is being created. It allocates one integer and initializes it with value 5. A second pointer is being generated and p1 is assigned to it. That is not possible, because an object can never be owned by two unique pointers. But you can move the ownership from p1 to a new unique pointer p3 with the function move. If an existing unique pointer (p4) is to refer to another new object, use the member function reset (new object) of unique pointer. reset () then takes over ownership of the new object and then destroys the old, previous object. If reset () is called without argument, the previous object will be deleted and the unique pointer will no longer contain an object reference.
