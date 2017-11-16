@@ -87,10 +87,10 @@ class Print{
 };
 ```
 ```c++
-    int values[] = {1,2,3,4,5};
-    std::vector<int> v (values, values + 5);
-    Print p = for_each(v.begin(),v.end(), Print()); //1 2 3 4 5
-    std::cout << "\nCount of digits: " << std::to_string(p.Count());    
+int values[] = {1,2,3,4,5};
+std::vector<int> v (values, values + 5);
+Print p = for_each(v.begin(),v.end(), Print()); //1 2 3 4 5
+std::cout << "\nCount of digits: " << std::to_string(p.Count());    
 ```
 
 The class Print contains the function operator (). A local variable n has also been defined. The value of the variable is used in the function and will be incremented. There is also a second function Count defined, which returns the value n. 
@@ -131,20 +131,20 @@ At the beginning a unique pointer (p1) is being created. It allocates one intege
 A shared pointer is a container for a raw pointer. It maintains reference counting ownership of its contained pointer in cooperation with all copies of the shared pointer. An object referenced by the contained raw pointer will be destroyed when and only when all copies of the shared pointer have been destroyed.
 
 ```c++
-    std::shared_ptr<int> p0 (new int(5));
-    std::shared_ptr<int> p1 (new int(7));
-    std::shared_ptr<int> p2 = p1; //Both now own the memory
+std::shared_ptr<int> p0 (new int(5));
+std::shared_ptr<int> p1 (new int(7));
+std::shared_ptr<int> p2 = p1; //Both now own the memory
     
-    std::cout << p2.use_count(); // 2
+std::cout << p2.use_count(); // 2
     
-    p1.reset(); //Memory still exists, due to p2
+p1.reset(); //Memory still exists, due to p2
     
-    std::cout << p2.use_count(); // 1
+std::cout << p2.use_count(); // 1
     
-    p2.reset()
-    //Destroyed the object, since no one else owns the memory
+p2.reset()
+//Destroyed the object, since no one else owns the memory
     
-    std::cout << p2.use_count(); // 0
+std::cout << p2.use_count(); // 0
  ```
 Two shared pointers are being created. Another shared pointer is being created which also refers to the same object as p1. If you then check the reference count it results 2. Afterwards reset p1 and the reference count result 1 because p2 still refers to the object. If you also reset p2 the object will be destroyed because no one else owns the memory.
 
@@ -171,35 +171,35 @@ In C++17 there is as well a merge operation which takes a non-const reference to
 We have moved elements of src into dst without any heap allocation or deallocation, and without constructing, destroying or losing any elements. The third insert failed, returning the usual insert return values and the orphaned node. 
 
 ```c++
-    std::map<int, std::string> src;
-    std::map<int, std::string> dst {{3,"three"}};
+std::map<int, std::string> src;
+std::map<int, std::string> dst {{3,"three"}};
     
-    src.emplace(1,"one");
-    src.emplace(2,"two");
-    src.emplace(3,"Digit 3");
+src.emplace(1,"one");
+src.emplace(2,"two");
+src.emplace(3,"Digit 3");
     
-    dst.insert(src.extract(src.find(1))); // Iterator version.
-    dst.insert(src.extract(2)); // Key type version.
-    auto r = dst.insert(src.extract(3)); // Key type version.
+dst.insert(src.extract(src.find(1))); // Iterator version.
+dst.insert(src.extract(2)); // Key type version.
+auto r = dst.insert(src.extract(3)); // Key type version.
     
-    // src == {}
-    // dst == {“one”, “two”, “three”}
-    // r.position == dst.begin() + 2
-    // r.inserted == false
-    // r.node == “Digit 3”
+// src == {}
+// dst == {“one”, “two”, “three”}
+// r.position == dst.begin() + 2
+// r.inserted == false
+// r.node == “Digit 3”
  ```
  
 **Inserting an entire set**
 
 The element “5” cannot be moved to the new set, since the same entry already exists. 
 ```c++
-    std::set<int> src{1, 3, 5};
-    std::set<int> dst{2, 4, 5};
+std::set<int> src{1, 3, 5};
+std::set<int> dst{2, 4, 5};
     
-    dst.merge(src);   // Merge src into dst.
+dst.merge(src);   // Merge src into dst.
     
-    // src == {5}
-    // dst == {1, 2, 3, 4, 5}
+// src == {5}
+// dst == {1, 2, 3, 4, 5}
  ```
  
 **Surviving the death of the container**
@@ -223,16 +223,16 @@ myset.insert(new_record());
 This is a very useful operation that is not possible today without deleting the element and constructing a new one. While doing this with a node handle does require the insertion and tree balancing overhead, it does not cause any memory allocation or deallocation. 
 
 ```c++
-    std::map<int, std::string> m;
+std::map<int, std::string> m;
     
-    m.emplace(1,"bike");
-    m.emplace(2,"car");
-    m.emplace(3,"bus");
+m.emplace(1,"bike");
+m.emplace(2,"car");
+m.emplace(3,"bus");
     
-    auto nh = m.extract(2);
-    nh.key() = 4;
-    m.insert(move(nh));
-    //{1,”bike”}, {3,”bus”}, {4,”car”}
+auto nh = m.extract(2);
+nh.key() = 4;
+m.insert(move(nh));
+//{1,”bike”}, {3,”bus”}, {4,”car”}
 ```
 ## Selection statements with initializers
 
