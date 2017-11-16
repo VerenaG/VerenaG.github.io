@@ -14,7 +14,6 @@ Die Container können in zwei Arten unterschieden werden:
 - Standard Container: deque, list, vector, map, set
 
 - Container Adapters
-
 An adapter is a class template that uses a container for storage and provides a restricted interface when compared    with the standard containers. Adapters do not have iterators, so they cannot be used with the standard algorithms. The standard adapters are: priority_queue, queue, stack
 
 ## 2. Iterators
@@ -41,6 +40,25 @@ Each container offers one of the above mentioned iterators, which depends on the
 | list      | BidirectionalIterator  |
 | map       | BidirectionalIterator  |
 | set       | BidirectionalIterator  |
+
+There are also special kinds of iterators.
+
+**Insertion Iterators:**
+An insertion iterator is a kind of output iterator that inserts items into a container. The insertion iterators all work in a similar fashion. The increment operator (++) is a no-op (it does nothing), and the iterator does not actually keep track of any position. The dereference operator (*) returns the iterator, not a value. The assignment operator (=) is then overloaded to insert the right-hand operand in the container. Three different insertion iterators are available:
+
+- back_insert_iterator: inserts items at the end of the container
+
+- front_insert_iterator: insert items at the front of the container
+
+- insert_iterator: inserts items in the container at a special position (If the container is a sequence container, new items are inserted immediately before position. If x is an associative container, items are inserted at the appropriate position)
+
+
+**Reverse Iterator:**
+The Reverse Iterator reverses the direction of a given iterator. It is only available for containers that provide bidirectional or random access iterators. If there is a container with a bidirectional iterator, the reverse_iterator produces a new iterator that moves from the end to the beginning of the sequence defined by the underlying bidirectional iterator.
+
+**Const Iterators:**
+Each container must supply an iterator type and a const_iterator type. Functions such as begin () and end () return iterator if they are called on a non-constant container, and const_iterator if they are called on a constant container. Const_iterators return non-modifiable objects. That means that a modification of the content is not allowed and only read access is supported. The standard requires that a plain iterator be convertible to const_iterator, but not the other way around.
+
 
 **Note:** The most important point to remember about iterators is that they are potentially unsafe. Like pointers, an iterator can point to a container that has been destroyed or to an element that has been erased. You can advance an iterator past the end of the container in the same way a pointer can point past the end of an array. With a little care and caution, however, iterators are safe to use.
 
