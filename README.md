@@ -247,9 +247,9 @@ While this may seem just like a nice feature for keeping your code short, it is 
 
 ```c++
 {
-         //critical path
-         std::loack_guard<std::mutex> lock(mx);
-         if (v.empty()) v.push_back(val);
+        //critical path
+        std::loack_guard<std::mutex> lock(mx);
+        if (v.empty()) v.push_back(val);
 }
 //not critical
 ```
@@ -259,7 +259,7 @@ In this example, we only need to hold the lock in the critical path, and want it
 ```c++
 if (std::lock_guard<std::mutex> lk(mx); v.empty()) {
          v.push_back(val)M
-                 //critical path
+         //critical path
 }
 //not critical
 ```
@@ -350,7 +350,7 @@ This concept is particularly useful when dealing with maps as maps are by design
 template <typename Key, typename Value, typename f>
 void update(std::map<Key, Value>&m, F f) {
          fpr(auto&&[key, value] : m)
-                 value = f(key);
+         value = f(key);
 }
 ```
 
