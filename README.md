@@ -238,13 +238,45 @@ This is a very useful operation that is not possible today without deleting the 
 
 Another interesting feature in C++17 are selection statements with initializers. With this feature, if statements can now instantiate variables just like for loops.
 
+```c++
+if (init_statement; condition) {
+         //body
+}
+```
 While this may seem just like a nice feature for keeping your code short, it is also useful for controlling the scope of your variables. Imagine the following situation where you must deal with locks:
 
+```c++
+{
+         //critical path
+         std::loack_guard<std::mutex> lock(mx);
+         if (v.empty()) v.push_back(val);
+}
+//not critical
+```
 
 In this example, we only need to hold the lock in the critical path, and want it to be out of scope in the non-critical path. To control its scope, we must put more brackets around the critical path, which adds another level of indentation is far less readable.  With C++17, we can rewrite the code above using selection statements with initializers:
 
-A variable initialized like this is only visible in the if-statement and all branches it could take from there. Figure X clarifies the scoping rules for this feature.
-Selection statements with initializers work for if-statements as well as for switch-cases.
+```c++
+if (std::lock_guard<std::mutex> lk(mx); v.empty()) {
+         v.push_back(val)M
+                 //critical path
+}
+//not critical
+```
+
+A variable initialized like this is only visible in the if-statement and all branches it could take from there. Figure X clarifies the scoping rules for this feature. Selection statements with initializers work for if-statements as well as for switch-cases.
+
+```c++
+if (int x = 0; condition) {
+         //x is in scop
+}
+else if (int y = 0; condition) {
+         //x and y are in scope
+}
+else {
+         //x and y are in scope
+}
+```
 
 ## Fold Expressions
 
