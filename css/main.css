@@ -392,8 +392,8 @@ a:visited { color: #205caa; }
 .highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
 .highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
 .highlight .nn { color: #555555 } /* Name.Namespace */
-.highlight .nt { color: #000080 } /* Name.Tag */
-.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .nt { color: #0B5FC2 } /* Name.Tag */
+.highlight .nv { color: #0B5FC2 } /* Name.Variable */
 .highlight .ow { font-weight: bold } /* Operator.Word */
 .highlight .w { color: #bbbbbb } /* Text.Whitespace */
 .highlight .mf { color: #009999 } /* Literal.Number.Float */
