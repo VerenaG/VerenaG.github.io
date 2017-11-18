@@ -211,12 +211,12 @@ auto new_record(){
     
     std::set<std::string> myset;
     
-    myset.emblace("first");
-    myset.emblace("second");
+    myset.emplace("first");
+    myset.emplace("second");
     
     return myset.extract(myset.begin());
 }
-myset.insert(new_record());
+myset2.insert(new_record());
 ```
 **Changing the key of a map element** 
 
