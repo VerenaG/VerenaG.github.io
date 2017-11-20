@@ -152,6 +152,17 @@ There is also a third pointer called “weak pointer” in C++. A weak pointer i
 
 For more information about smart pointers see: [http://en.cppreference.com/w/cpp/memory](http://en.cppreference.com/w/cpp/memory)
 
+##Lambda Expressions
+
+Lambda expressions are not a new concept. They have been introduced in C++ 11, but see some changes in C++ 17. In C++, Lambda expressions look like this:  ```c++ [ captures ] ( params ) -> ret { body } ```
+
+The captures in the square brackets are used to pass variables into the function. With this you can define any variable of the outer scope to be accessible in the context of the Lambda expression. They can either be captured by value or by reference. It is also possible to capture the current object by passing the “this”- Pointer into the capture list. In the params list, the possible parameters are defined, just like in any other function. After the arrow you can define the return type, but this is optional since the return type is being deducted.
+
+Prior to C++ 17 it was only possible to pass “this” by reference. That could be problematic, especially if the context of asynchronous callbacks, that require an object to be available, potentially past its lifetime. With C++ 17 it is now possible to pass “this” by value.
+
+Another change is that Lambdas can now be constexpr. That way they can now be used in places that require compile-time evaluation like for example array-size specifiers.
+
+
 # C++17 Features
 
 ## Splicing for maps and sets
