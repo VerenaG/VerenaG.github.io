@@ -330,7 +330,7 @@ Similarly, if you have a unary right fold over the comma separator in the form o
 ```
 it would expand as
 ```c++
-	-v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
+	v.push_back(args[0]), v.push_back(args[1]), ..., v.push_back(args[N-1]);
 ```
 
 	
