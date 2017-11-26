@@ -1,5 +1,5 @@
 
-The blog briefly summarizes the components of the STL, some important common language features and new language features released with the new ISO standard C++17.
+The blog briefly summarizes the components of the STL, some important common language features and new language features released with the ISO standard C++17.
 
 # STL
 
@@ -10,22 +10,20 @@ The STL can be divided into four components:
 ## 1. Containers
 The fundamental purpose of a container is to store multiple objects in a single container object. Different kinds of containers have different characteristics: speed, size, and ease of use. The choice of container depends on the characteristics and behavior you require.
 
-Die Container können in zwei Arten unterschieden werden:
+The containers can be divided into two types::
 - Standard Container: deque, list, vector, map, set
 
-- Container Adapters
-An adapter is a class template that uses a container for storage and provides a restricted interface when compared    with the standard containers. Adapters do not have iterators, so they cannot be used with the standard algorithms. The standard adapters are: priority_queue, queue, stack
+- Container Adapters: An adapter is a class template that uses a container for storage and provides a restricted interface when compared    with the standard containers. Adapters do not have iterators, so they cannot be used with the standard algorithms. The standard adapters are: priority_queue, queue, stack
 
 ## 2. Iterators
 
-An iterator is any object that, pointing to some element in a range of elements (such as an array or a container) and has the ability to iterate through the elements of that range using a set of operators. The most obvious form of an iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (++).  Iterators generalize this concept so the same operators have the same behavior for any container, even trees and lists. Notice that while a pointer is a form of iterator, not all iterators have the same functionality of pointers. Depending on the properties supported by iterators, they are classified into five different categories:
+An iterator is any object that pointing to some element in a range of elements (such as an array or a container) and has the ability to iterate through the elements of that range using a set of operators. The most obvious form of an iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (++).  Iterators generalize this concept so the same operators have the same behavior for any container, even trees and lists. Notice that while a pointer is a form of iterator, not all iterators have the same functionality of pointers. Depending on the properties supported by iterators, they are classified into five different categories:
 
 **Input** An InputIterator is an Iterator that can read from the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator (--). Use the dereference operator (*) to read elements. You cannot read a single element more than once, and you cannot modify elements.
 	
-**Output** With an OutputIterator you can wright to the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator. Use the dereference operator (*) only to assign a value to an element. You cannot assign a value more than once to a single element. Unlike other iterator categories, you cannot compare output iterators.
+**Output** With an OutputIterator you can write to the pointed-to element. The increment operator (++) advances to the next element, but there is no decrement operator. Use the dereference operator (*) only to assign a value to an element. You cannot assign a value more than once to a single element. Unlike other iterator categories, you cannot compare output iterators.
 	
-**Forward** ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the 
-dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
+**Forward** ForwardIterators permit unidirectional access to a sequence. Use the increment operator (++) to advance the iterator and the dereference operator (*) to read or write an element. You can refer to and assign to an item as many times as you want. You can use a forward iterator anywhere an input or output iterator is required.
 	
 **Bidirectional** A BidirectionalIterator is a ForwardIterator that can be moved in both directions (i.e. incremented and decremented).
 	
@@ -102,7 +100,7 @@ Binary functors that return a boolean value are called binary predicates or�
 # Common C++ Features
 
 ## Smart Pointers
-In C++ there is no Garbage Collector, as know from Java. For this reason, C++ uses Smart Pointers to manage the resources. A smart pointer is a class that wraps a 'raw' C++ pointer, to manage the lifetime of the object being pointed to. It prevents most situations of memory leaks by making the memory deallocation automatic. More generally, smart pointers make object destruction automatic: an object controlled by a smart pointer is automatically destroyed (finalized and then deallocated) when the last (or only) owner of an object is destroyed, for example because the owner is a local variable, and execution leaves the variable's scope. Smart pointers also eliminate dangling pointers by postponing destruction until an object is no longer in use. C++ provides two different Smart Pointers.
+In C++ there is no garbage collector, as known from Java. For this reason, C++ uses smart pointers to manage the resources. A smart pointer is a class that wraps a 'raw' C++ pointer, to manage the lifetime of the object being pointed to. It prevents most situations of memory leaks by making the memory deallocation automatic. More generally, smart pointers make object destruction automatic: an object controlled by a smart pointer is automatically destroyed (finalized and then deallocated) when the last (or only) owner of an object is destroyed, for example because the owner is a local variable, and execution leaves the variable's scope. Smart pointers also eliminate dangling pointers by postponing destruction until an object is no longer in use. C++ provides two different Smart Pointers.
 
 **Unique Pointer**
 A unique pointer takes over ownership of the object assigned to it. This means that two unique pointers can never refer to the same object. Note that if a pointer is passed to the unique pointer on an already existing object, the property of the object is transferred to the unique pointer and therefore the object must not be deleted using its original pointer.
@@ -148,7 +146,7 @@ std::cout << p2.use_count(); // 0
  ```
 Two shared pointers are being created. Another shared pointer is being created which also refers to the same object as p1. If you then check the reference count it results 2. Afterwards reset p1 and the reference count result 1 because p2 still refers to the object. If you also reset p2 the object will be destroyed because no one else owns the memory.
 
-There is also a third pointer called “weak pointer” in C++. A weak pointer is a container for a raw pointer. It is created as a copy of a shared pointer. The existence or destruction of weak pointer copies of a shared pointer have no effect on the shared pointer or its other copies. After all copies of a shared pointer have been destroyed, all weak pointer copies become empty. A weak pointer is mainly used when you need to access objects that may have been deleted in the meantime for some reason. While the shared pointer offers a powerful interface, the weak pointer is not considered as a smart pointer at all. Finally, it does not allow transparent access to the resource. Although it is possible to share a resource with it, the weak pointer cannot own it, because in fact he only borrows the resource from a shared pointer. It does not change the reference counter. 
+There is also a third pointer called “weak pointer” in C++. A weak pointer is a container for a raw pointer. It is created as a copy of a shared pointer. The existence or destruction of weak pointer copies of a shared pointer have no effect on the shared pointer or its other copies. After all copies of a shared pointer have been destroyed, all weak pointer copies become empty. A weak pointer is mainly used when you need to access objects that may have been deleted in the meantime for some reason. While the shared pointer offers a powerful interface, the weak pointer is not considered as a smart pointer at all. Finally, it does not allow transparent access to the resource. Although it is possible to share a resource with it, the weak pointer cannot own it, because in fact it only borrows the resource from a shared pointer. It does not change the reference counter. 
 
 For more information about smart pointers see: [http://en.cppreference.com/w/cpp/memory](http://en.cppreference.com/w/cpp/memory)
 
