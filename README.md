@@ -109,7 +109,7 @@ A unique pointer takes over ownership of the object assigned to it. This means t
 std::unique_ptr<int> p1 (new int(5));
 //std::unique_ptr<int> p2 = p1; //Compile error
 std::unique_ptr<int> p3 =std::move(p1);
-//Transfer ownership
+//Transfers ownership
 //p3 now owns the memory and p1 is set to nullptr
 std::unique_ptr<int> p4 (new int(7));
     
