@@ -140,7 +140,7 @@ p1.reset(); //Memory still exists, due to p2
 std::cout << p2.use_count(); // 1
     
 p2.reset()
-//Destroyed the object, since no one else owns the memory
+//Destroys the object, since no one else owns the memory
     
 std::cout << p2.use_count(); // 0
  ```
