@@ -353,7 +353,7 @@ auto[first, second, third] = t;
 auto&[first, second, third] = t;
 auto const[first, second, third] = t;
 ```
-With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules [http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts](http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
+With this, the contents of the tuple are bound to the respective variables in the auto and their type is deduced following the auto deduction rules [(Argument deduction)](http://en.cppreference.com/w/cpp/language/template_argument_deduction#Other_contexts). As the example above shows, you are now able to easily bind the contents of a structure to variables, you do not have to define the variables first, you are not prone to typos and you even can get the values by reference or as constants.
 This concept is particularly useful when dealing with maps as maps are by design a structure of two pairs. A simple update script for values in a map, where you update each value by a given function, could look like this:
 ```c++
 template <typename Key, typename Value, typename f>
