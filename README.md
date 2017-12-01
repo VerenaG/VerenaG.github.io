@@ -263,7 +263,7 @@ While this may seem just like a nice feature for keeping your code short, it is 
 //not critical
 ```
 
-In this example, we only need to hold the lock in the critical path, and want it to be out of scope in the non-critical path. To control its scope, we must put more brackets around the critical path, which adds another level of indentation is far less readable.  With C++17, we can rewrite the code above using selection statements with initializers:
+In this example, we only need to hold the lock in the critical path, and want it to be out of scope in the non-critical path. To control its scope, we must put more brackets around the critical path, which adds another level of indentation and is far less readable.  With C++17, we can rewrite the code above using selection statements with initializers:
 
 ```c++
 if (std::lock_guard<std::mutex> lk(mx); v.empty()) {
@@ -289,7 +289,7 @@ else {
 
 ## Fold Expressions
 
-Writing template functions with an undefined number of arguments (so called variadic functions) could get verbose prior to C++17. Let’s take the following example: We want to write a function that computes a sum over an undefined number of arguments. To do that, we have to define a separate function for each edge case. Even in this simple example, we need at least one function for no parameters and one for a call with n parameters. As you can see in the code below on the left, this produces unneccesary overhead.
+Writing template functions with an undefined number of arguments (so called variadic functions) could get verbose prior to C++17. Let’s take the following example: We want to write a function that computes a sum over an undefined number of arguments. To do that, we have to define a separate function for each edge case. Even in this simple example, we need at least one function for no parameters and one for a call with n parameters. As you can see in the code below, this produces unnecessary overhead.
 
 | Expression         | Expansion               
 |--------------------|-----------------------------------------------|
@@ -346,7 +346,7 @@ This syntax has many problems and is extremely verbose and prone to errors. Not 
 ```c++
 auto& first = std::get<0>(t)
 ```
-To address these problems, C++ 17 introduces a new way to unpack expressions like tuples, arrays or even structs. This feature is called structured bindings and allows you to unpack the tuple from above: 
+To address these problems, C++ 17 introduces a new way to unpack expressions like tuples, structs or even classes. This feature is called structured bindings and allows you to unpack the tuple from above: 
 ```c++
 std::tuple<int, int, int> t = std::make_tuple(1, 5, 10);
 auto[first, second, third] = t;
@@ -368,8 +368,7 @@ void update(std::map<Key, Value>&m, F f) {
 There are many situations where you must deal with strings, but never modify them. Consider the following function, where you only want the first three items of a string returned:
 ```c++
 std::string first_3(std:string const& s) { 
-         if (s.size() < 3) return s;
-        
+         if (s.size() < 3) return s;     
          return s.substr(0, 2); 
 }
 ```
